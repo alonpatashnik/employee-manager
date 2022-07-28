@@ -1,9 +1,9 @@
-INSERT INTO department (dept_name)
+INSERT INTO department (name)
 VALUES ("Finance"),
 ("Marketing"),
 ("Sales");
 
-INSERT INTO role (title, salary, dept_id)
+INSERT INTO role (title, salary, department_id)
 VALUES ("Data Analyst", 80000, 1),
 ("Chief Financial Officer", 120000, 1),
 ("Marketing Associate", 70000, 2),
@@ -18,10 +18,10 @@ VALUES ("Alon", "Patashnik", 2, NULL),
 ("Mattie", "O'Boyle", 4, NULL),
 ("Janice", "Fair", 3, 4),
 ("Liam", "Wiese", 3, 4),
-("Sam", "Wiper", 5, 10),
-("Connor", "Murray", 5, 10),
-("Karly", "Dougherty", 5, 10),
 ("Sam", "Leinon", 6, NULL),
+("Sam", "Wiper", 5, 7),
+("Connor", "Murray", 5, 7),
+("Karly", "Dougherty", 5, 7),
 ("Jordan", "Shaw", 1, 1),
 ("Jake", "Hoyer", 3, 4);
 
