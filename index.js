@@ -34,7 +34,6 @@ function init() {
           break;
         case "Add a department":
           addDepartment();
-          init();
           break;
         case "Add a role":
           addRole();
@@ -59,14 +58,14 @@ function viewAllDepartments() {
     .then(() => init());
 }
 
-function viewAllRoles(){
+function viewAllRoles() {
   db.displayRoles().then(([data]) => {
     console.table(data);
   })
   .then(() => init());
 }
 
-function viewAllEmployees(){
+function viewAllEmployees() {
   db.displayEmployees().then(([data]) => {
     console.table(data);
   })
@@ -74,7 +73,7 @@ function viewAllEmployees(){
 }
 
 
-function addRole(){
+function addRole() {
   db.displayDepartments().then(([data])=>{
     const departmentChoices = data.map(({id, name})=>({
       name: name, 
@@ -99,10 +98,69 @@ function addRole(){
         choices: departmentChoices
       }
     ]).then((res)=> {
-     db.insertRole(res)
-    }).then(()=> init())
+     db.insertRole(res.title, res.salary, res.department_id)
+    }).then(() => init())
 
 
   })
 }
+
+function addDepartment() {
+    inquirer.prompt([ 
+      {
+        type: 'input', 
+        message: 'what is the name of the new department?',
+        name: 'department'
+      }
+    ]).then((res) => {
+      console.log(res.department)
+     db.insertDepartment(res.department)
+    }).then(() => init())
+}
+
+function addEmployee() {
+  db.getAllRoles().then(([data]) => {
+    const roleChoices = data.map(({id, title}) => ({
+      value: id,
+      name: title
+    }));
+    db.displayEmployees().then(([data]) => {
+      const manList = data.map(({id, first_name, last_name, manager_id}) => ({
+        value: id,
+        name: first_name,
+        lname: last_name,
+        mi: manager_id
+      }))
+      const manFilter = manList.filter(obj => obj.mi === null)
+
+      inquirer.prompt([
+        {
+          type: 'input',
+          message: 'What is the new employees first name?',
+          name: 'first_name'
+        }, 
+        {
+          type:'input',
+          message: 'What is the new employees last name?',
+          name: 'last_name'
+        }, 
+        {
+          type: 'list', 
+          message: 'what is the role of the new employee?',
+          name: 'role_id',
+          choices: roleChoices
+        },
+        {
+          type: 'list', 
+          message: 'Who is the manager of the new employee?',
+          name: 'manager_id',
+          choices: manFilter
+        }
+      ]).then((res) => {
+      db.insertEmployee(res.first_name, res.last_name, res.role_id, res.manager_id)
+      }).then(() => init())
+    })})}
+
+
+
 init();
