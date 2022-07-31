@@ -18,8 +18,8 @@ First, you need to npm install inquirer version 8, mysql2, and console.table. Ne
 
 ## Usage
 This app is used for managing a database full of employees and their roles. YOu can return data about employees by using db querys
-![Picture of command line](./Screenshot%202022-07-28%20191319.png)
-![Picture of command line2](./Screenshot%202022-07-28%20191413.png)
+![Picture of command line](./assets/Screenshot%202022-07-28%20191319.png)
+![Picture of command line2](./assets/Screenshot%202022-07-28%20191413.png)
 
 ## License
 
